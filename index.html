@@ -21,7 +21,6 @@
   body{font-family:'Inter',system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--texto);line-height:1.6;-webkit-font-smoothing:antialiased}
   .num{font-family:'JetBrains Mono',monospace;font-variant-numeric:tabular-nums}
 
-  /* HERO */
   .hero{position:relative;overflow:hidden;padding:4.5rem 1.5rem 3.5rem;text-align:center;border-bottom:1px solid var(--line)}
   .hero::before{content:'';position:absolute;inset:-40%;background:
     radial-gradient(600px 300px at 20% 20%, rgba(251,113,133,.16), transparent 60%),
@@ -38,9 +37,12 @@
 
   main{max-width:1080px;margin:0 auto;padding:2.5rem 1.25rem 1rem}
   h2{font-size:1.05rem;font-weight:600;text-transform:uppercase;letter-spacing:.12em;color:var(--sub);margin:2.8rem 0 1.2rem}
+  h3.viaje{display:flex;align-items:center;gap:.6rem;font-size:.92rem;font-weight:600;color:var(--texto);margin:1.6rem 0 .9rem}
+  h3.viaje .linea-demo{display:inline-block;width:34px;height:0;border-top:3px solid var(--tenue)}
+  h3.viaje.ene31 .linea-demo{border-top-style:dashed}
+  h3.viaje .rango{color:var(--tenue);font-weight:500}
   .aviso{background:rgba(251,191,36,.08);border:1px solid rgba(251,191,36,.25);color:#fbbf24;padding:1rem 1.25rem;border-radius:var(--radius);margin-bottom:1.5rem;font-size:.92rem}
 
-  /* CARDS */
   .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.1rem}
   .card{position:relative;background:linear-gradient(180deg,var(--panel),var(--panel2));border:1px solid var(--line);border-radius:var(--radius);padding:1.5rem;transition:transform .2s ease,border-color .2s ease}
   .card:hover{transform:translateY(-3px);border-color:rgba(148,163,184,.3)}
@@ -59,7 +61,6 @@
   .card a.comprar{display:inline-flex;align-items:center;gap:.4rem;margin-top:1.1rem;background:var(--acc);color:#0b1220;font-weight:600;text-decoration:none;padding:.55rem 1.15rem;border-radius:10px;font-size:.85rem;transition:filter .15s}
   .card a.comprar:hover{filter:brightness(1.12)}
 
-  /* CHART & TABLE */
   .panel{background:linear-gradient(180deg,var(--panel),var(--panel2));border:1px solid var(--line);border-radius:var(--radius);padding:1.4rem}
   .tabla-wrap{overflow-x:auto;border-radius:var(--radius);border:1px solid var(--line)}
   table{width:100%;border-collapse:collapse;font-size:.85rem;background:var(--panel2)}
@@ -71,15 +72,14 @@
   .pill.directo{color:var(--directo);background:rgba(251,113,133,.12)}
   .pill.rapido{color:var(--rapido);background:rgba(56,189,248,.12)}
   .pill.economico{color:var(--economico);background:rgba(52,211,153,.12)}
+  .pill.viaje{color:var(--sub);background:rgba(148,163,184,.12)}
 
-  /* FUENTES */
   .fuentes{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:.9rem}
   .fuente{display:block;background:linear-gradient(180deg,var(--panel),var(--panel2));border:1px solid var(--line);border-radius:14px;padding:1rem 1.15rem;text-decoration:none;color:var(--texto);transition:transform .2s,border-color .2s}
   .fuente:hover{transform:translateY(-2px);border-color:rgba(56,189,248,.4)}
   .fuente .nombre{display:block;font-weight:600;font-size:.92rem}
   .fuente .desc{display:block;font-size:.8rem;color:var(--tenue);margin-top:.25rem}
 
-  /* DIDÁCTICA */
   .didactica{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:.9rem}
   .nota{background:linear-gradient(180deg,var(--panel),var(--panel2));border:1px solid var(--line);border-radius:14px;padding:1.15rem 1.25rem;font-size:.87rem;color:var(--sub)}
   .nota strong{color:var(--texto);display:block;margin-bottom:.35rem;font-size:.92rem}
@@ -92,10 +92,11 @@
 <body>
 <header class="hero">
   <div class="ruta"><span class="iata">SCL</span><span class="flecha">✈</span><span class="iata">BCN</span></div>
-  <div class="sub">Monitor de precios · Santiago de Chile → Barcelona, ida y vuelta</div>
+  <div class="sub">Monitor de precios · Santiago de Chile → Barcelona, ida y vuelta · dos itinerarios en seguimiento</div>
   <div class="chips">
     <span class="chip">Ida <strong>sáb 9 ene 2027</strong></span>
-    <span class="chip">Retorno <strong>vie 19 mar 2027</strong></span>
+    <span class="chip">Retorno A <strong>vie 19 mar</strong></span>
+    <span class="chip">Retorno B <strong>dom 31 ene</strong></span>
     <span class="chip">Consultas <strong>06:00 · 10:00 · 16:00</strong></span>
     <span class="chip" id="chip-act">Actualizado <strong>—</strong></span>
   </div>
@@ -104,55 +105,37 @@
   <div class="aviso" id="aviso" hidden></div>
 
   <h2>Últimos precios por tipología</h2>
-  <div class="cards">
-    <div class="card directo">
-      <div class="tipo"><span class="dot"></span>Vuelo directo</div>
-      <div class="explica">Sin escalas. Operan LEVEL e Iberia (~13–14 h por trayecto). La opción más cara, pero la más cómoda.</div>
-      <div class="fila-precio"><span class="precio num" id="p-directo">—</span><span class="delta igual" id="d-directo" hidden></span></div>
-      <div class="meta" id="m-directo">Aún sin cotización registrada</div>
-      <a class="comprar" id="c-directo" href="https://www.flylevel.com/" target="_blank" rel="noopener">Comprar / cotizar →</a>
-    </div>
-    <div class="card rapido">
-      <div class="tipo"><span class="dot"></span>Económico de menor duración</div>
-      <div class="explica">El itinerario más corto entre las opciones económicas, excluido el directo. Equilibrio precio-tiempo.</div>
-      <div class="fila-precio"><span class="precio num" id="p-rapido">—</span><span class="delta igual" id="d-rapido" hidden></span></div>
-      <div class="meta" id="m-rapido">Aún sin cotización registrada</div>
-      <a class="comprar" id="c-rapido" href="https://www.google.com/travel/flights?q=Flights%20from%20SCL%20to%20BCN%20on%202027-01-09%20returning%202027-03-19" target="_blank" rel="noopener">Comprar / cotizar →</a>
-    </div>
-    <div class="card economico">
-      <div class="tipo"><span class="dot"></span>Económico</div>
-      <div class="explica">El precio más bajo de toda la búsqueda, sin restricción de duración ni escalas. Puede implicar esperas largas.</div>
-      <div class="fila-precio"><span class="precio num" id="p-economico">—</span><span class="delta igual" id="d-economico" hidden></span></div>
-      <div class="meta" id="m-economico">Aún sin cotización registrada</div>
-      <a class="comprar" id="c-economico" href="https://www.kayak.cl/flights/SCL-BCN/2027-01-09/2027-03-19" target="_blank" rel="noopener">Comprar / cotizar →</a>
-    </div>
-  </div>
+  <h3 class="viaje mar19"><span class="linea-demo"></span>Itinerario A <span class="rango">· 9 ene → 19 mar 2027 (69 días)</span></h3>
+  <div class="cards" id="cards-mar19"></div>
+  <h3 class="viaje ene31"><span class="linea-demo"></span>Itinerario B <span class="rango">· 9 ene → 31 ene 2027 (22 días)</span></h3>
+  <div class="cards" id="cards-ene31"></div>
 
   <h2>Evolución de precios (CLP, ida y vuelta)</h2>
-  <div class="panel"><canvas id="chartLinea" height="120"></canvas></div>
+  <div class="panel"><canvas id="chartLinea" height="130"></canvas></div>
 
   <h2>Registro histórico</h2>
   <div class="tabla-wrap">
   <table>
-    <thead><tr><th>Fecha</th><th>Hora</th><th>Tipología</th><th>Aerolínea</th><th>Precio CLP</th><th>Duración</th><th>Escalas</th><th>Fuente</th></tr></thead>
-    <tbody id="tbody"><tr><td colspan="8" style="text-align:center;color:var(--tenue)">Sin registros todavía</td></tr></tbody>
+    <thead><tr><th>Fecha</th><th>Hora</th><th>Viaje</th><th>Tipología</th><th>Aerolínea</th><th>Precio CLP</th><th>Duración</th><th>Escalas</th><th>Fuente</th></tr></thead>
+    <tbody id="tbody"><tr><td colspan="9" style="text-align:center;color:var(--tenue)">Sin registros todavía</td></tr></tbody>
   </table>
   </div>
 
   <h2>Fuentes de consulta y compra</h2>
   <div class="fuentes">
-    <a class="fuente" href="https://www.google.com/travel/flights?q=Flights%20from%20SCL%20to%20BCN%20on%202027-01-09%20returning%202027-03-19" target="_blank" rel="noopener"><span class="nombre">🔎 Google Flights</span><span class="desc">Búsqueda con fechas precargadas; permite crear alertas de precio propias.</span></a>
+    <a class="fuente" href="https://www.google.com/travel/flights/search?tfs=CBwQAhooEgoyMDI3LTAxLTA5agwIAhIIL20vMGRscXZyDAgDEggvbS8wMWY2MhooEgoyMDI3LTAzLTE5agwIAxIIL20vMDFmNjJyDAgCEggvbS8wZGxxdkABSAFwAYIBCwj___________8BmAEB&hl=es-419&curr=CLP" target="_blank" rel="noopener"><span class="nombre">🔎 Google Flights · retorno 19 mar</span><span class="desc">Búsqueda del itinerario A con fechas precargadas.</span></a>
+    <a class="fuente" href="https://www.google.com/travel/flights/search?tfs=CBwQAhooEgoyMDI3LTAxLTA5agwIAhIIL20vMGRscXZyDAgDEggvbS8wMWY2MhooEgoyMDI3LTAxLTMxagwIAxIIL20vMDFmNjJyDAgCEggvbS8wZGxxdkABSAFwAYIBCwj___________8BmAEB&hl=es-419&curr=CLP" target="_blank" rel="noopener"><span class="nombre">🔎 Google Flights · retorno 31 ene</span><span class="desc">Búsqueda del itinerario B con fechas precargadas.</span></a>
     <a class="fuente" href="https://www.flylevel.com/es/rutas/vuelos-directos-de-santiago-de-chile-a-barcelona/" target="_blank" rel="noopener"><span class="nombre">✈️ LEVEL</span><span class="desc">Única low-cost con directo SCL–BCN; compra directa con la aerolínea.</span></a>
     <a class="fuente" href="https://www.iberia.com/cl/" target="_blank" rel="noopener"><span class="nombre">✈️ Iberia</span><span class="desc">Directo SCL–BCN (mar, jue, sáb) y opciones vía Madrid.</span></a>
-    <a class="fuente" href="https://www.kayak.cl/flights/SCL-BCN/2027-01-09/2027-03-19" target="_blank" rel="noopener"><span class="nombre">🔎 Kayak Chile</span><span class="desc">Comparador con las fechas ya cargadas.</span></a>
-    <a class="fuente" href="https://www.skyscanner.cl/transporte/vuelos/scl/bcn/270109/270319/" target="_blank" rel="noopener"><span class="nombre">🔎 Skyscanner Chile</span><span class="desc">Útil para itinerarios con escalas largas más baratos.</span></a>
+    <a class="fuente" href="https://www.kayak.cl/flights/SCL-BCN/2027-01-09/2027-03-19" target="_blank" rel="noopener"><span class="nombre">🔎 Kayak · retorno 19 mar</span><span class="desc">Comparador, itinerario A.</span></a>
+    <a class="fuente" href="https://www.kayak.cl/flights/SCL-BCN/2027-01-09/2027-01-31" target="_blank" rel="noopener"><span class="nombre">🔎 Kayak · retorno 31 ene</span><span class="desc">Comparador, itinerario B.</span></a>
   </div>
 
   <h2>Cómo leer este monitor</h2>
   <div class="didactica">
     <div class="nota"><strong>Tres tipologías, tres preguntas</strong>El directo responde «¿cuánto cuesta la comodidad?»; el económico de menor duración, «¿cuál es el mejor equilibrio precio-tiempo?»; el económico, «¿cuál es el piso del mercado?». La distancia entre curvas es el precio de cada hora ahorrada.</div>
+    <div class="nota"><strong>Dos itinerarios</strong>El itinerario A (69 días, retorno 19 mar) y el B (22 días, retorno 31 ene) comparten la ida. En el gráfico, A usa línea continua y B línea discontinua; comparar ambos revela cuánto pesa la fecha de retorno en la tarifa.</div>
     <div class="nota"><strong>Cuándo comprar</strong>Para larga distancia Chile–Europa, la ventana histórica de mejores precios suele estar entre 2 y 6 meses antes de la salida. Si la curva del directo se acerca a la del económico, es señal fuerte de compra.</div>
-    <div class="nota"><strong>Frecuencia de registro</strong>Cada punto corresponde a una consulta programada (06:00, 10:00 y 16:00). Las variaciones intradía reflejan la gestión dinámica de tarifas de las aerolíneas.</div>
   </div>
 </main>
 <footer>
@@ -160,62 +143,82 @@
 </footer>
 <script>
 const COLORES = {directo:'#fb7185', rapido:'#38bdf8', economico:'#34d399'};
-const NOMBRES = {directo:'Directo', rapido:'Económico menor duración', economico:'Económico'};
+const NOMBRES = {directo:'Vuelo directo', rapido:'Económico de menor duración', economico:'Económico'};
+const EXPLICA = {
+  directo:'Sin escalas. Operan LEVEL e Iberia (~13–14 h por trayecto). La opción más cara, pero la más cómoda.',
+  rapido:'El itinerario más corto entre las opciones económicas, excluido el directo. Equilibrio precio-tiempo.',
+  economico:'El precio más bajo de toda la búsqueda, sin restricción de duración ni escalas. Puede implicar esperas largas.'
+};
+const VIAJES = {
+  mar19:{etiqueta:'A · ret. 19 mar', dash:[], gf:'https://www.google.com/travel/flights/search?tfs=CBwQAhooEgoyMDI3LTAxLTA5agwIAhIIL20vMGRscXZyDAgDEggvbS8wMWY2MhooEgoyMDI3LTAzLTE5agwIAxIIL20vMDFmNjJyDAgCEggvbS8wZGxxdkABSAFwAYIBCwj___________8BmAEB&hl=es-419&curr=CLP'},
+  ene31:{etiqueta:'B · ret. 31 ene', dash:[6,5], gf:'https://www.google.com/travel/flights/search?tfs=CBwQAhooEgoyMDI3LTAxLTA5agwIAhIIL20vMGRscXZyDAgDEggvbS8wMWY2MhooEgoyMDI3LTAxLTMxagwIAxIIL20vMDFmNjJyDAgCEggvbS8wZGxxdkABSAFwAYIBCwj___________8BmAEB&hl=es-419&curr=CLP'}
+};
 const fmtCLP = v => v ? new Intl.NumberFormat('es-CL',{style:'currency',currency:'CLP'}).format(v) : '—';
+
+function tarjeta(v, t, serie){
+  const r = serie.length ? serie[serie.length-1] : null;
+  let delta = '';
+  if(serie.length>1){
+    const prev = +serie[serie.length-2].precio_clp, cur = +r.precio_clp, dif = cur-prev;
+    const pct = (Math.abs(dif)/prev*100).toFixed(1);
+    delta = dif<0 ? `<span class="delta baja" title="Anterior: ${fmtCLP(prev)}">▼ ${pct}%</span>`
+          : dif>0 ? `<span class="delta sube" title="Anterior: ${fmtCLP(prev)}">▲ ${pct}%</span>`
+          : `<span class="delta igual">＝ sin cambio</span>`;
+  }
+  const url = r && r.url_fuente ? r.url_fuente : VIAJES[v].gf;
+  return `<div class="card ${t}">
+    <div class="tipo"><span class="dot"></span>${NOMBRES[t]}</div>
+    <div class="explica">${EXPLICA[t]}</div>
+    <div class="fila-precio"><span class="precio num">${r?fmtCLP(+r.precio_clp):'—'}</span>${delta}</div>
+    <div class="meta">${r?`${r.aerolinea||'—'} · ${r.duracion_total||'—'} · ${r.escalas} escala(s) · ${r.fecha_consulta_local} ${r.hora_consulta}`:'Aún sin cotización registrada'}</div>
+    <a class="comprar" href="${url}" target="_blank" rel="noopener">Comprar / cotizar →</a>
+  </div>`;
+}
 
 fetch('data.json').then(r=>r.json()).then(d=>{
   document.querySelector('#chip-act strong').textContent = (d.actualizado||'—').replace('T',' ').slice(0,16)+' UTC';
-  const regs = (d.registros||[]).filter(r=>r.precio_clp);
+  const regs = (d.registros||[]).filter(r=>r.precio_clp).map(r=>({...r, viaje:r.viaje||'mar19'}));
   if(!regs.length){
     const av = document.getElementById('aviso');
     av.hidden = false;
     av.innerHTML = '<strong>Monitor en fase inicial.</strong> Infraestructura operativa; aún sin cotizaciones registradas.';
     return;
   }
-  // Último y penúltimo registro por tipología (para delta)
-  const hist = {directo:[], rapido:[], economico:[]};
-  regs.forEach(r=>{ if(hist[r.tipologia]) hist[r.tipologia].push(r); });
-  for(const t of ['directo','rapido','economico']){
-    const serie = hist[t]; if(!serie.length) continue;
-    const r = serie[serie.length-1];
-    document.getElementById('p-'+t).textContent = fmtCLP(+r.precio_clp);
-    document.getElementById('m-'+t).textContent = `${r.aerolinea||'—'} · ${r.duracion_total||'—'} · ${r.escalas} escala(s) · ${r.fecha_consulta_local} ${r.hora_consulta}`;
-    if(r.url_fuente) document.getElementById('c-'+t).href = r.url_fuente;
-    if(serie.length>1){
-      const prev = +serie[serie.length-2].precio_clp, cur = +r.precio_clp, dif = cur-prev;
-      const el = document.getElementById('d-'+t);
-      el.hidden = false;
-      const pct = (Math.abs(dif)/prev*100).toFixed(1);
-      if(dif<0){ el.className='delta baja'; el.textContent=`▼ ${pct}%`; }
-      else if(dif>0){ el.className='delta sube'; el.textContent=`▲ ${pct}%`; }
-      else { el.className='delta igual'; el.textContent='＝ sin cambio'; }
-      el.title = `Anterior: ${fmtCLP(prev)}`;
-    }
+  // Series por viaje+tipología
+  const serie = (v,t)=>regs.filter(r=>r.viaje===v && r.tipologia===t);
+  for(const v of Object.keys(VIAJES)){
+    document.getElementById('cards-'+v).innerHTML =
+      ['directo','rapido','economico'].map(t=>tarjeta(v,t,serie(v,t))).join('');
   }
-  // Gráfico
-  const etiquetas = [...new Set(regs.map(r=>r.fecha_consulta_local+' '+r.hora_consulta))];
-  const datasets = Object.keys(NOMBRES).map(t=>({
-    label:NOMBRES[t], borderColor:COLORES[t], backgroundColor:COLORES[t]+'22',
-    pointBackgroundColor:COLORES[t], pointRadius:4, pointHoverRadius:6,
-    borderWidth:2.5, tension:.35, spanGaps:true, fill:false,
-    data:etiquetas.map(e=>{
-      const m = [...regs].reverse().find(r=>r.tipologia===t && r.fecha_consulta_local+' '+r.hora_consulta===e);
-      return m ? +m.precio_clp : null;
-    })
-  }));
+  // Gráfico: 6 series (continua = mar19, discontinua = ene31)
+  const etiquetas = [...new Set(regs.map(r=>r.fecha_consulta_local+' '+r.hora_consulta))].sort();
+  const datasets = [];
+  for(const v of Object.keys(VIAJES)) for(const t of Object.keys(NOMBRES)){
+    const s = serie(v,t); if(!s.length) continue;
+    datasets.push({
+      label:`${NOMBRES[t]} (${VIAJES[v].etiqueta})`,
+      borderColor:COLORES[t], backgroundColor:COLORES[t],
+      borderDash:VIAJES[v].dash, pointBackgroundColor:COLORES[t],
+      pointRadius:4, pointHoverRadius:6, borderWidth:2.5, tension:.35, spanGaps:true,
+      data:etiquetas.map(e=>{
+        const m = [...s].reverse().find(r=>r.fecha_consulta_local+' '+r.hora_consulta===e);
+        return m ? +m.precio_clp : null;
+      })
+    });
+  }
   new Chart(document.getElementById('chartLinea'),{
     type:'line', data:{labels:etiquetas, datasets},
     options:{
-      plugins:{legend:{position:'bottom',labels:{color:'#94a3b8',usePointStyle:true,pointStyle:'circle',padding:18}}},
+      plugins:{legend:{position:'bottom',labels:{color:'#94a3b8',usePointStyle:true,pointStyle:'line',padding:16,font:{size:11}}}},
       scales:{
         x:{ticks:{color:'#64748b',font:{size:11}},grid:{color:'rgba(148,163,184,.07)'}},
         y:{ticks:{color:'#64748b',font:{size:11},callback:v=>new Intl.NumberFormat('es-CL',{notation:'compact',compactDisplay:'short'}).format(v)},grid:{color:'rgba(148,163,184,.07)'}}
       }
     }
   });
-  // Tabla (últimos 30, recientes primero)
-  document.getElementById('tbody').innerHTML = regs.slice(-30).reverse().map(r=>
-    `<tr><td>${r.fecha_consulta_local}</td><td>${r.hora_consulta}</td><td><span class="pill ${r.tipologia}">${NOMBRES[r.tipologia]||r.tipologia}</span></td><td>${r.aerolinea||'—'}</td><td class="num">${fmtCLP(+r.precio_clp)}</td><td>${r.duracion_total||'—'}</td><td>${r.escalas}</td><td>${r.url_fuente?`<a href="${r.url_fuente}" target="_blank" rel="noopener">${r.fuente}</a>`:r.fuente}</td></tr>`
+  // Tabla (últimos 40, recientes primero)
+  document.getElementById('tbody').innerHTML = regs.slice(-40).reverse().map(r=>
+    `<tr><td>${r.fecha_consulta_local}</td><td>${r.hora_consulta}</td><td><span class="pill viaje">${VIAJES[r.viaje]?VIAJES[r.viaje].etiqueta:r.viaje}</span></td><td><span class="pill ${r.tipologia}">${NOMBRES[r.tipologia]||r.tipologia}</span></td><td>${r.aerolinea||'—'}</td><td class="num">${fmtCLP(+r.precio_clp)}</td><td>${r.duracion_total||'—'}</td><td>${r.escalas}</td><td>${r.url_fuente?`<a href="${r.url_fuente}" target="_blank" rel="noopener">${r.fuente}</a>`:r.fuente}</td></tr>`
   ).join('');
 }).catch(()=>{ const av=document.getElementById('aviso'); av.hidden=false; av.textContent='No se pudo cargar data.json.'; });
 </script>
