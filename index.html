@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vuelos Santiago → Barcelona · Enero–Marzo 2027</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+<style>
+  :root{
+    --azul:#0b3d66; --azul-claro:#1273b8; --arena:#f7f4ee; --tinta:#22303c;
+    --directo:#d95d39; --rapido:#1273b8; --economico:#2a9d6e; --gris:#8a97a3;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:Georgia,'Times New Roman',serif;background:var(--arena);color:var(--tinta);line-height:1.6}
+  header{background:linear-gradient(135deg,var(--azul) 0%,var(--azul-claro) 100%);color:#fff;padding:3rem 1.5rem 2.5rem;text-align:center}
+  header h1{font-size:clamp(1.6rem,4vw,2.6rem);font-weight:normal;letter-spacing:.5px}
+  header .ruta{font-size:1.1rem;opacity:.9;margin-top:.6rem}
+  header .fechas{display:inline-block;margin-top:1rem;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.35);border-radius:999px;padding:.4rem 1.2rem;font-size:.95rem}
+  main{max-width:1000px;margin:0 auto;padding:2rem 1.25rem}
+  .aviso{background:#fff8e6;border-left:4px solid #d9a439;padding:1rem 1.25rem;border-radius:6px;margin-bottom:2rem;font-size:.95rem}
+  h2{font-weight:normal;color:var(--azul);margin:2.2rem 0 1rem;border-bottom:2px solid var(--azul-claro);padding-bottom:.35rem}
+  .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.25rem}
+  .card{background:#fff;border-radius:10px;padding:1.4rem;box-shadow:0 2px 8px rgba(0,0,0,.08);border-top:5px solid var(--gris)}
+  .card.directo{border-top-color:var(--directo)} .card.rapido{border-top-color:var(--rapido)} .card.economico{border-top-color:var(--economico)}
+  .card h3{font-size:1.05rem;color:var(--azul)}
+  .card .explica{font-size:.85rem;color:#5b6770;margin:.4rem 0 .8rem}
+  .card .precio{font-size:1.7rem;color:var(--tinta)}
+  .card .meta{font-size:.85rem;color:#5b6770;margin-top:.3rem}
+  .card a.comprar{display:inline-block;margin-top:.9rem;background:var(--azul);color:#fff;text-decoration:none;padding:.5rem 1rem;border-radius:6px;font-size:.9rem}
+  .card a.comprar:hover{background:var(--azul-claro)}
+  .grafico{background:#fff;border-radius:10px;padding:1.25rem;box-shadow:0 2px 8px rgba(0,0,0,.08);margin-top:1rem}
+  table{width:100%;border-collapse:collapse;background:#fff;border-radius:10px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.08);font-size:.88rem}
+  th,td{padding:.55rem .8rem;text-align:left;border-bottom:1px solid #eef1f4}
+  th{background:var(--azul);color:#fff;font-weight:normal}
+  .fuentes ul{list-style:none}
+  .fuentes li{background:#fff;margin:.5rem 0;padding:.8rem 1rem;border-radius:8px;box-shadow:0 1px 4px rgba(0,0,0,.06)}
+  .fuentes a{color:var(--azul-claro);text-decoration:none}
+  .fuentes a:hover{text-decoration:underline}
+  .didactica{background:#eef5fb;border-radius:10px;padding:1.25rem 1.5rem;margin-top:1rem;font-size:.95rem}
+  .didactica p{margin:.5rem 0}
+  footer{text-align:center;padding:2rem 1rem;color:#5b6770;font-size:.85rem}
+  #actualizado{font-style:italic}
+</style>
+</head>
+<body>
+<header>
+  <h1>Santiago de Chile ✈ Barcelona</h1>
+  <div class="ruta">Monitor de precios · SCL → BCN → SCL</div>
+  <div class="fechas">Ida: sábado 9 de enero de 2027 &nbsp;·&nbsp; Retorno: viernes 19 de marzo de 2027</div>
+</header>
+<main>
+  <div class="aviso" id="aviso" hidden></div>
+
+  <h2>Últimos precios por tipología</h2>
+  <div class="cards">
+    <div class="card directo">
+      <h3>① Vuelo directo</h3>
+      <div class="explica">Sin escalas. En esta ruta operan LEVEL e Iberia (~13–14 h por trayecto). Suele ser la opción más cara, pero la más cómoda.</div>
+      <div class="precio" id="p-directo">—</div>
+      <div class="meta" id="m-directo">Aún sin cotización registrada</div>
+      <a class="comprar" id="c-directo" href="https://www.flylevel.com/" target="_blank" rel="noopener">Comprar / cotizar</a>
+    </div>
+    <div class="card rapido">
+      <h3>② Económico de menor duración</h3>
+      <div class="explica">La opción más barata dentro de los itinerarios con una sola escala corta (típicamente vía Madrid, São Paulo o Lisboa).</div>
+      <div class="precio" id="p-rapido">—</div>
+      <div class="meta" id="m-rapido">Aún sin cotización registrada</div>
+      <a class="comprar" id="c-rapido" href="https://www.google.com/travel/flights?q=Flights%20from%20SCL%20to%20BCN%20on%202027-01-09%20returning%202027-03-19" target="_blank" rel="noopener">Comprar / cotizar</a>
+    </div>
+    <div class="card economico">
+      <h3>③ Económico</h3>
+      <div class="explica">El precio más bajo disponible, sin restricción de duración ni número de escalas. Puede implicar esperas largas.</div>
+      <div class="precio" id="p-economico">—</div>
+      <div class="meta" id="m-economico">Aún sin cotización registrada</div>
+      <a class="comprar" id="c-economico" href="https://www.kayak.cl/flights/SCL-BCN/2027-01-09/2027-03-19" target="_blank" rel="noopener">Comprar / cotizar</a>
+    </div>
+  </div>
+
+  <h2>Evolución de precios (CLP)</h2>
+  <div class="grafico"><canvas id="chartLinea" height="110"></canvas></div>
+
+  <h2>Registro histórico</h2>
+  <div style="overflow-x:auto">
+  <table>
+    <thead><tr><th>Fecha</th><th>Hora</th><th>Tipología</th><th>Aerolínea</th><th>Precio CLP</th><th>Duración</th><th>Escalas</th><th>Fuente</th></tr></thead>
+    <tbody id="tbody"><tr><td colspan="8" style="text-align:center;color:#8a97a3">Sin registros todavía</td></tr></tbody>
+  </table>
+  </div>
+
+  <h2>Fuentes de consulta y compra</h2>
+  <div class="fuentes"><ul>
+    <li>🔎 <a href="https://www.google.com/travel/flights?q=Flights%20from%20SCL%20to%20BCN%20on%202027-01-09%20returning%202027-03-19" target="_blank" rel="noopener">Google Flights</a> — búsqueda con las fechas ya cargadas; permite crear alerta de precio propia.</li>
+    <li>✈️ <a href="https://www.flylevel.com/es/rutas/vuelos-directos-de-santiago-de-chile-a-barcelona/" target="_blank" rel="noopener">LEVEL</a> — única low-cost con vuelo directo SCL–BCN; compra directa con la aerolínea.</li>
+    <li>✈️ <a href="https://www.iberia.com/cl/" target="_blank" rel="noopener">Iberia</a> — vuelo directo SCL–BCN (martes, jueves y sábado) y opciones vía Madrid.</li>
+    <li>🔎 <a href="https://www.kayak.cl/flights/SCL-BCN/2027-01-09/2027-03-19" target="_blank" rel="noopener">Kayak Chile</a> — comparador con las fechas ya cargadas.</li>
+    <li>🔎 <a href="https://www.skyscanner.cl/transporte/vuelos/scl/bcn/270109/270319/" target="_blank" rel="noopener">Skyscanner Chile</a> — comparador; útil para itinerarios con escalas largas más baratos.</li>
+  </ul></div>
+
+  <h2>Cómo leer este monitor</h2>
+  <div class="didactica">
+    <p><strong>Tres tipologías, tres preguntas distintas.</strong> El vuelo <em>directo</em> responde a «¿cuánto cuesta la comodidad?»; el <em>económico de menor duración</em> a «¿cuál es el mejor equilibrio precio-tiempo?»; y el <em>económico</em> a «¿cuál es el piso absoluto del mercado?». La distancia entre las tres curvas indica cuánto se paga por cada hora ahorrada.</p>
+    <p><strong>Cuándo comprar.</strong> Para vuelos de larga distancia Chile–Europa, la ventana histórica de mejores precios suele situarse entre 2 y 6 meses antes de la salida. Si la curva del directo se acerca a la del económico, es una señal fuerte de compra.</p>
+    <p><strong>Frecuencia de registro.</strong> Cada punto del gráfico corresponde a una consulta programada (06:00, 10:00 y 16:00). Las variaciones intradía reflejan la gestión dinámica de tarifas de las aerolíneas.</p>
+  </div>
+</main>
+<footer>
+  Repositorio <strong>vuelos-santiago-barcelona-2027</strong> · Datos: <code>price_history.csv</code> · <span id="actualizado"></span>
+</footer>
+<script>
+const COLORES = {directo:'#d95d39', rapido:'#1273b8', economico:'#2a9d6e'};
+const NOMBRES = {directo:'Directo', rapido:'Económico menor duración', economico:'Económico'};
+const fmtCLP = v => v ? new Intl.NumberFormat('es-CL',{style:'currency',currency:'CLP'}).format(v) : '—';
+
+fetch('data.json').then(r=>r.json()).then(d=>{
+  document.getElementById('actualizado').textContent = 'Actualizado: ' + (d.actualizado||'').replace('T',' ').slice(0,16) + ' UTC';
+  const regs = (d.registros||[]).filter(r=>r.precio_clp);
+  if(!regs.length){
+    const av = document.getElementById('aviso');
+    av.hidden = false;
+    av.innerHTML = '<strong>Monitor en fase inicial.</strong> La infraestructura está operativa pero todavía no hay cotizaciones en vivo registradas. Las consultas automáticas requieren acceso a un navegador autorizado; ver README del repositorio.';
+    return;
+  }
+  // Tarjetas: último registro por tipología
+  const porTipo = {};
+  regs.forEach(r=>{ porTipo[r.tipologia] = r; });
+  for(const t of ['directo','rapido','economico']){
+    const r = porTipo[t]; if(!r) continue;
+    document.getElementById('p-'+t).textContent = fmtCLP(+r.precio_clp);
+    document.getElementById('m-'+t).textContent = `${r.aerolinea||'—'} · ${r.duracion_total||'—'} · ${r.escalas} escala(s) · ${r.fecha_consulta_local} ${r.hora_consulta}`;
+    if(r.url_fuente) document.getElementById('c-'+t).href = r.url_fuente;
+  }
+  // Gráfico de líneas
+  const etiquetas = [...new Set(regs.map(r=>r.fecha_consulta_local+' '+r.hora_consulta))];
+  const datasets = Object.keys(NOMBRES).map(t=>({
+    label:NOMBRES[t], borderColor:COLORES[t], backgroundColor:COLORES[t], tension:.25, spanGaps:true,
+    data:etiquetas.map(e=>{
+      const m = regs.find(r=>r.tipologia===t && r.fecha_consulta_local+' '+r.hora_consulta===e);
+      return m ? +m.precio_clp : null;
+    })
+  }));
+  new Chart(document.getElementById('chartLinea'),{
+    type:'line', data:{labels:etiquetas, datasets},
+    options:{plugins:{legend:{position:'bottom'}},
+      scales:{y:{ticks:{callback:v=>fmtCLP(v)}}}}
+  });
+  // Tabla (últimos 30, más recientes primero)
+  document.getElementById('tbody').innerHTML = regs.slice(-30).reverse().map(r=>
+    `<tr><td>${r.fecha_consulta_local}</td><td>${r.hora_consulta}</td><td>${NOMBRES[r.tipologia]||r.tipologia}</td><td>${r.aerolinea||'—'}</td><td>${fmtCLP(+r.precio_clp)}</td><td>${r.duracion_total||'—'}</td><td>${r.escalas}</td><td>${r.url_fuente?`<a href="${r.url_fuente}" target="_blank" rel="noopener">${r.fuente}</a>`:r.fuente}</td></tr>`
+  ).join('');
+}).catch(()=>{ document.getElementById('aviso').hidden=false;
+  document.getElementById('aviso').textContent='No se pudo cargar data.json.'; });
+</script>
+</body>
+</html>

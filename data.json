@@ -1,0 +1,47 @@
+{
+ "actualizado": "2026-08-13T19:49:44.274944Z",
+ "registros": [
+  {
+   "timestamp_utc": "2026-08-13T19:46:48.872129Z",
+   "fecha_consulta_local": "2026-08-13",
+   "hora_consulta": "15:46",
+   "tipologia": "directo",
+   "aerolinea": "LEVEL",
+   "precio_clp": "1690188",
+   "precio_usd": "",
+   "duracion_total": "13h25m",
+   "escalas": "0",
+   "fuente": "Google Flights",
+   "url_fuente": "https://www.google.com/travel/flights/search?tfs=CBwQAhooEgoyMDI3LTAxLTA5agwIAhIIL20vMGRscXZyDAgDEggvbS8wMWY2MhooEgoyMDI3LTAzLTE5agwIAxIIL20vMDFmNjJyDAgCEggvbS8wZGxxdkABSAFwAYIBCwj___________8BmAEB&hl=es-419&curr=CLP",
+   "notas": "Iberia (operado por Level) mismo vuelo: CLP 1.698.126"
+  },
+  {
+   "timestamp_utc": "2026-08-13T19:46:48.894472Z",
+   "fecha_consulta_local": "2026-08-13",
+   "hora_consulta": "15:46",
+   "tipologia": "rapido",
+   "aerolinea": "LATAM + Iberia",
+   "precio_clp": "1906666",
+   "precio_usd": "",
+   "duracion_total": "18h30m",
+   "escalas": "2",
+   "fuente": "Google Flights",
+   "url_fuente": "https://www.google.com/travel/flights/search?tfs=CBwQAhooEgoyMDI3LTAxLTA5agwIAhIIL20vMGRscXZyDAgDEggvbS8wMWY2MhooEgoyMDI3LTAzLTE5agwIAxIIL20vMDFmNjJyDAgCEggvbS8wZGxxdkABSAFwAYIBCwj___________8BmAEB&hl=es-419&curr=CLP",
+   "notas": "Vía GRU y MAD. Criterio: itinerario más corto entre opciones <CLP 2M excluyendo directo"
+  },
+  {
+   "timestamp_utc": "2026-08-13T19:46:48.913999Z",
+   "fecha_consulta_local": "2026-08-13",
+   "hora_consulta": "15:46",
+   "tipologia": "economico",
+   "aerolinea": "Avianca",
+   "precio_clp": "1287890",
+   "precio_usd": "",
+   "duracion_total": "20h15m",
+   "escalas": "1",
+   "fuente": "Google Flights",
+   "url_fuente": "https://www.google.com/travel/flights/search?tfs=CBwQAhooEgoyMDI3LTAxLTA5agwIAhIIL20vMGRscXZyDAgDEggvbS8wMWY2MhooEgoyMDI3LTAzLTE5agwIAxIIL20vMDFmNjJyDAgCEggvbS8wZGxxdkABSAFwAYIBCwj___________8BmAEB&hl=es-419&curr=CLP",
+   "notas": "Vía BOG (escala 3h50m). Más barato de toda la búsqueda"
+  }
+ ]
+}
