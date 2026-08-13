@@ -13,7 +13,8 @@
   :root{
     --bg:#0b1220; --panel:#111a2e; --panel2:#0e1626; --line:rgba(148,163,184,.14);
     --texto:#e2e8f0; --sub:#94a3b8; --tenue:#64748b;
-    --directo:#fb7185; --rapido:#38bdf8; --economico:#34d399;
+    --mar19-directo:#67e8f9; --mar19-rapido:#38bdf8; --mar19-economico:#818cf8;
+    --ene31-directo:#fde68a; --ene31-rapido:#fb923c; --ene31-economico:#f43f5e;
     --radius:18px;
   }
   *{box-sizing:border-box;margin:0;padding:0}
@@ -23,9 +24,9 @@
 
   .hero{position:relative;overflow:hidden;padding:4.5rem 1.5rem 3.5rem;text-align:center;border-bottom:1px solid var(--line)}
   .hero::before{content:'';position:absolute;inset:-40%;background:
-    radial-gradient(600px 300px at 20% 20%, rgba(251,113,133,.16), transparent 60%),
-    radial-gradient(700px 350px at 80% 30%, rgba(56,189,248,.16), transparent 60%),
-    radial-gradient(600px 300px at 50% 90%, rgba(52,211,153,.12), transparent 60%);pointer-events:none}
+    radial-gradient(600px 300px at 20% 20%, rgba(56,189,248,.16), transparent 60%),
+    radial-gradient(700px 350px at 80% 30%, rgba(251,146,60,.16), transparent 60%),
+    radial-gradient(600px 300px at 50% 90%, rgba(129,140,248,.12), transparent 60%);pointer-events:none}
   .hero>*{position:relative}
   .ruta{display:flex;justify-content:center;align-items:baseline;gap:1rem;font-weight:800;font-size:clamp(2.4rem,7vw,4.2rem);letter-spacing:-.03em}
   .ruta .flecha{color:var(--tenue);font-weight:400;font-size:.55em}
@@ -34,12 +35,15 @@
   .chips{display:flex;flex-wrap:wrap;gap:.6rem;justify-content:center;margin-top:1.4rem}
   .chip{border:1px solid var(--line);background:rgba(255,255,255,.04);backdrop-filter:blur(6px);border-radius:999px;padding:.45rem 1.1rem;font-size:.85rem;color:var(--sub)}
   .chip strong{color:var(--texto);font-weight:600}
+  .chip.mar19{border-color:rgba(56,189,248,.35)}
+  .chip.ene31{border-color:rgba(251,146,60,.35)}
 
   main{max-width:1080px;margin:0 auto;padding:2.5rem 1.25rem 1rem}
   h2{font-size:1.05rem;font-weight:600;text-transform:uppercase;letter-spacing:.12em;color:var(--sub);margin:2.8rem 0 1.2rem}
   h3.viaje{display:flex;align-items:center;gap:.6rem;font-size:.92rem;font-weight:600;color:var(--texto);margin:1.6rem 0 .9rem}
   h3.viaje .linea-demo{display:inline-block;width:34px;height:0;border-top:3px solid var(--tenue)}
-  h3.viaje.ene31 .linea-demo{border-top-style:dashed}
+  h3.viaje.mar19 .linea-demo{border-top-color:var(--mar19-rapido)}
+  h3.viaje.ene31 .linea-demo{border-top-style:dashed;border-top-color:var(--ene31-rapido)}
   h3.viaje .rango{color:var(--tenue);font-weight:500}
   .aviso{background:rgba(251,191,36,.08);border:1px solid rgba(251,191,36,.25);color:#fbbf24;padding:1rem 1.25rem;border-radius:var(--radius);margin-bottom:1.5rem;font-size:.92rem}
 
@@ -47,7 +51,6 @@
   .card{position:relative;background:linear-gradient(180deg,var(--panel),var(--panel2));border:1px solid var(--line);border-radius:var(--radius);padding:1.5rem;transition:transform .2s ease,border-color .2s ease}
   .card:hover{transform:translateY(-3px);border-color:rgba(148,163,184,.3)}
   .card::before{content:'';position:absolute;top:0;left:1.5rem;right:1.5rem;height:2px;border-radius:2px;background:var(--acc)}
-  .card.directo{--acc:var(--directo)} .card.rapido{--acc:var(--rapido)} .card.economico{--acc:var(--economico)}
   .card .tipo{display:flex;align-items:center;gap:.5rem;font-weight:600;font-size:.95rem}
   .card .dot{width:9px;height:9px;border-radius:50%;background:var(--acc);box-shadow:0 0 12px var(--acc)}
   .card .explica{font-size:.82rem;color:var(--tenue);margin:.55rem 0 1.1rem;min-height:3.2em}
@@ -66,13 +69,9 @@
   table{width:100%;border-collapse:collapse;font-size:.85rem;background:var(--panel2)}
   th{background:rgba(148,163,184,.06);color:var(--sub);font-weight:600;text-transform:uppercase;font-size:.7rem;letter-spacing:.08em;text-align:left;padding:.7rem .9rem}
   td{padding:.6rem .9rem;border-top:1px solid var(--line);color:var(--texto)}
-  td a{color:var(--rapido);text-decoration:none}
+  td a{color:#38bdf8;text-decoration:none}
   td a:hover{text-decoration:underline}
   .pill{display:inline-block;padding:.12rem .6rem;border-radius:999px;font-size:.72rem;font-weight:600}
-  .pill.directo{color:var(--directo);background:rgba(251,113,133,.12)}
-  .pill.rapido{color:var(--rapido);background:rgba(56,189,248,.12)}
-  .pill.economico{color:var(--economico);background:rgba(52,211,153,.12)}
-  .pill.viaje{color:var(--sub);background:rgba(148,163,184,.12)}
 
   .fuentes{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:.9rem}
   .fuente{display:block;background:linear-gradient(180deg,var(--panel),var(--panel2));border:1px solid var(--line);border-radius:14px;padding:1rem 1.15rem;text-decoration:none;color:var(--texto);transition:transform .2s,border-color .2s}
@@ -95,8 +94,8 @@
   <div class="sub">Monitor de precios · Santiago de Chile → Barcelona, ida y vuelta · dos itinerarios en seguimiento</div>
   <div class="chips">
     <span class="chip">Ida <strong>sáb 9 ene 2027</strong></span>
-    <span class="chip">Retorno A <strong>vie 19 mar</strong></span>
-    <span class="chip">Retorno B <strong>dom 31 ene</strong></span>
+    <span class="chip mar19">Retorno A <strong>vie 19 mar</strong></span>
+    <span class="chip ene31">Retorno B <strong>dom 31 ene</strong></span>
     <span class="chip">Consultas <strong>06:00 · 10:00 · 16:00</strong></span>
     <span class="chip" id="chip-act">Actualizado <strong>—</strong></span>
   </div>
@@ -134,7 +133,7 @@
   <h2>Cómo leer este monitor</h2>
   <div class="didactica">
     <div class="nota"><strong>Tres tipologías, tres preguntas</strong>El directo responde «¿cuánto cuesta la comodidad?»; el económico de menor duración, «¿cuál es el mejor equilibrio precio-tiempo?»; el económico, «¿cuál es el piso del mercado?». La distancia entre curvas es el precio de cada hora ahorrada.</div>
-    <div class="nota"><strong>Dos itinerarios</strong>El itinerario A (69 días, retorno 19 mar) y el B (22 días, retorno 31 ene) comparten la ida. En el gráfico, A usa línea continua y B línea discontinua; comparar ambos revela cuánto pesa la fecha de retorno en la tarifa.</div>
+    <div class="nota"><strong>Dos itinerarios, dos paletas</strong>El itinerario A (69 días, retorno 19 mar) usa la familia azul/índigo y línea continua; el B (22 días, retorno 31 ene) usa la familia ámbar/naranja y línea discontinua. Dentro de cada paleta, el tono varía por tipología. Comparar ambos revela cuánto pesa la fecha de retorno en la tarifa.</div>
     <div class="nota"><strong>Cuándo comprar</strong>Para larga distancia Chile–Europa, la ventana histórica de mejores precios suele estar entre 2 y 6 meses antes de la salida. Si la curva del directo se acerca a la del económico, es señal fuerte de compra.</div>
   </div>
 </main>
@@ -142,7 +141,11 @@
   <a href="https://github.com/jcastillose/vuelos-santiago-barcelona-2027">Repositorio vuelos-santiago-barcelona-2027</a> · Datos: <span class="num">price_history.csv</span>
 </footer>
 <script>
-const COLORES = {directo:'#fb7185', rapido:'#38bdf8', economico:'#34d399'};
+// Paletas por itinerario: mar19 = fría (cian → cielo → índigo), ene31 = cálida (ámbar → naranjo → rosa)
+const COLORES = {
+  mar19:{directo:'#67e8f9', rapido:'#38bdf8', economico:'#818cf8'},
+  ene31:{directo:'#fde68a', rapido:'#fb923c', economico:'#f43f5e'}
+};
 const NOMBRES = {directo:'Vuelo directo', rapido:'Económico de menor duración', economico:'Económico'};
 const EXPLICA = {
   directo:'Sin escalas. Operan LEVEL e Iberia (~13–14 h por trayecto). La opción más cara, pero la más cómoda.',
@@ -154,9 +157,14 @@ const VIAJES = {
   ene31:{etiqueta:'B · ret. 31 ene', dash:[6,5], gf:'https://www.google.com/travel/flights/search?tfs=CBwQAhooEgoyMDI3LTAxLTA5agwIAhIIL20vMGRscXZyDAgDEggvbS8wMWY2MhooEgoyMDI3LTAxLTMxagwIAxIIL20vMDFmNjJyDAgCEggvbS8wZGxxdkABSAFwAYIBCwj___________8BmAEB&hl=es-419&curr=CLP'}
 };
 const fmtCLP = v => v ? new Intl.NumberFormat('es-CL',{style:'currency',currency:'CLP'}).format(v) : '—';
+const hexToRgba = (hex, a) => {
+  const n = parseInt(hex.slice(1),16);
+  return `rgba(${(n>>16)&255},${(n>>8)&255},${n&255},${a})`;
+};
 
 function tarjeta(v, t, serie){
   const r = serie.length ? serie[serie.length-1] : null;
+  const acc = COLORES[v][t];
   let delta = '';
   if(serie.length>1){
     const prev = +serie[serie.length-2].precio_clp, cur = +r.precio_clp, dif = cur-prev;
@@ -166,7 +174,7 @@ function tarjeta(v, t, serie){
           : `<span class="delta igual">＝ sin cambio</span>`;
   }
   const url = r && r.url_fuente ? r.url_fuente : VIAJES[v].gf;
-  return `<div class="card ${t}">
+  return `<div class="card ${t}" style="--acc:${acc}">
     <div class="tipo"><span class="dot"></span>${NOMBRES[t]}</div>
     <div class="explica">${EXPLICA[t]}</div>
     <div class="fila-precio"><span class="precio num">${r?fmtCLP(+r.precio_clp):'—'}</span>${delta}</div>
@@ -190,15 +198,16 @@ fetch('data.json?t='+Date.now(), {cache:'no-store'}).then(r=>r.json()).then(d=>{
     document.getElementById('cards-'+v).innerHTML =
       ['directo','rapido','economico'].map(t=>tarjeta(v,t,serie(v,t))).join('');
   }
-  // Gráfico: 6 series (continua = mar19, discontinua = ene31)
+  // Gráfico: 6 series (continua = mar19, discontinua = ene31; color = viaje+tipología)
   const etiquetas = [...new Set(regs.map(r=>r.fecha_consulta_local+' '+r.hora_consulta))].sort();
   const datasets = [];
   for(const v of Object.keys(VIAJES)) for(const t of Object.keys(NOMBRES)){
     const s = serie(v,t); if(!s.length) continue;
+    const col = COLORES[v][t];
     datasets.push({
       label:`${NOMBRES[t]} (${VIAJES[v].etiqueta})`,
-      borderColor:COLORES[t], backgroundColor:COLORES[t],
-      borderDash:VIAJES[v].dash, pointBackgroundColor:COLORES[t],
+      borderColor:col, backgroundColor:col,
+      borderDash:VIAJES[v].dash, pointBackgroundColor:col,
       pointRadius:4, pointHoverRadius:6, borderWidth:2.5, tension:.35, spanGaps:true,
       data:etiquetas.map(e=>{
         const m = [...s].reverse().find(r=>r.fecha_consulta_local+' '+r.hora_consulta===e);
@@ -217,9 +226,11 @@ fetch('data.json?t='+Date.now(), {cache:'no-store'}).then(r=>r.json()).then(d=>{
     }
   });
   // Tabla (últimos 40, recientes primero)
-  document.getElementById('tbody').innerHTML = regs.slice(-40).reverse().map(r=>
-    `<tr><td>${r.fecha_consulta_local}</td><td>${r.hora_consulta}</td><td><span class="pill viaje">${VIAJES[r.viaje]?VIAJES[r.viaje].etiqueta:r.viaje}</span></td><td><span class="pill ${r.tipologia}">${NOMBRES[r.tipologia]||r.tipologia}</span></td><td>${r.aerolinea||'—'}</td><td class="num">${fmtCLP(+r.precio_clp)}</td><td>${r.duracion_total||'—'}</td><td>${r.escalas}</td><td>${r.url_fuente?`<a href="${r.url_fuente}" target="_blank" rel="noopener">${r.fuente}</a>`:r.fuente}</td></tr>`
-  ).join('');
+  document.getElementById('tbody').innerHTML = regs.slice(-40).reverse().map(r=>{
+    const tipoCol = (COLORES[r.viaje]&&COLORES[r.viaje][r.tipologia]) || '#94a3b8';
+    const viajeCol = (VIAJES[r.viaje] && COLORES[r.viaje] && COLORES[r.viaje].rapido) || '#64748b';
+    return `<tr><td>${r.fecha_consulta_local}</td><td>${r.hora_consulta}</td><td><span class="pill" style="color:${viajeCol};background:${hexToRgba(viajeCol,.14)}">${VIAJES[r.viaje]?VIAJES[r.viaje].etiqueta:r.viaje}</span></td><td><span class="pill" style="color:${tipoCol};background:${hexToRgba(tipoCol,.14)}">${NOMBRES[r.tipologia]||r.tipologia}</span></td><td>${r.aerolinea||'—'}</td><td class="num">${fmtCLP(+r.precio_clp)}</td><td>${r.duracion_total||'—'}</td><td>${r.escalas}</td><td>${r.url_fuente?`<a href="${r.url_fuente}" target="_blank" rel="noopener">${r.fuente}</a>`:r.fuente}</td></tr>`;
+  }).join('');
 }).catch(()=>{ const av=document.getElementById('aviso'); av.hidden=false; av.textContent='No se pudo cargar data.json.'; });
 </script>
 </body>
