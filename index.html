@@ -175,7 +175,7 @@ function tarjeta(v, t, serie){
   </div>`;
 }
 
-fetch('data.json').then(r=>r.json()).then(d=>{
+fetch('data.json?t='+Date.now(), {cache:'no-store'}).then(r=>r.json()).then(d=>{
   document.querySelector('#chip-act strong').textContent = (d.actualizado||'—').replace('T',' ').slice(0,16)+' UTC';
   const regs = (d.registros||[]).filter(r=>r.precio_clp).map(r=>({...r, viaje:r.viaje||'mar19'}));
   if(!regs.length){
