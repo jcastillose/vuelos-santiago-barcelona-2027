@@ -1,5 +1,5 @@
 {
- "actualizado": "2026-08-13T20:31:01.369062Z",
+ "actualizado": "2026-08-14T00:20:14.135145Z",
  "registros": [
   {
    "timestamp_utc": "2026-08-13T19:46:48.872129Z",
@@ -90,6 +90,96 @@
    "fuente": "Google Flights",
    "url_fuente": "https://www.google.com/travel/flights/search?tfs=CBwQAhooEgoyMDI3LTAxLTA5agwIAhIIL20vMGRscXZyDAgDEggvbS8wMWY2MhooEgoyMDI3LTAxLTMxagwIAxIIL20vMDFmNjJyDAgCEggvbS8wZGxxdkABSAFwAYIBCwj___________8BmAEB&hl=es-419&curr=CLP",
    "notas": "Vía YYZ y YUL. Mínimo en vista Más económicos; Avianca 20h15 a CLP 1.273.975"
+  },
+  {
+   "timestamp_utc": "2026-08-14T00:20:14.032935Z",
+   "fecha_consulta_local": "2026-08-13",
+   "hora_consulta": "20:20",
+   "viaje": "mar19",
+   "tipologia": "directo",
+   "aerolinea": "LEVEL",
+   "precio_clp": "1691533",
+   "precio_usd": "",
+   "duracion_total": "13h25m",
+   "escalas": "0",
+   "fuente": "Google Flights",
+   "url_fuente": "https://www.google.com/travel/flights/search?tfs=CBwQAhooEgoyMDI3LTAxLTA5agwIAhIIL20vMGRscXZyDAgDEggvbS8wMWY2MhooEgoyMDI3LTAzLTE5agwIAxIIL20vMDFmNjJyDAgCEggvbS8wZGxxdkABSAFwAYIBCwj___________8BmAEB&hl=es-419&curr=CLP",
+   "notas": "Iberia (operado por Level) mismo vuelo: CLP 1.698.126"
+  },
+  {
+   "timestamp_utc": "2026-08-14T00:20:14.054830Z",
+   "fecha_consulta_local": "2026-08-13",
+   "hora_consulta": "20:20",
+   "viaje": "mar19",
+   "tipologia": "rapido",
+   "aerolinea": "LATAM + Iberia",
+   "precio_clp": "1906666",
+   "precio_usd": "",
+   "duracion_total": "18h30m",
+   "escalas": "2",
+   "fuente": "Google Flights",
+   "url_fuente": "https://www.google.com/travel/flights/search?tfs=CBwQAhooEgoyMDI3LTAxLTA5agwIAhIIL20vMGRscXZyDAgDEggvbS8wMWY2MhooEgoyMDI3LTAzLTE5agwIAxIIL20vMDFmNjJyDAgCEggvbS8wZGxxdkABSAFwAYIBCwj___________8BmAEB&hl=es-419&curr=CLP",
+   "notas": "Via GRU y MAD. Criterio: mas corto entre opciones <CLP 2M excluyendo directo (15h35 Iberia/LATAM cuesta 2.615.650)"
+  },
+  {
+   "timestamp_utc": "2026-08-14T00:20:14.075027Z",
+   "fecha_consulta_local": "2026-08-13",
+   "hora_consulta": "20:20",
+   "viaje": "mar19",
+   "tipologia": "economico",
+   "aerolinea": "Air Canada",
+   "precio_clp": "1271259",
+   "precio_usd": "",
+   "duracion_total": "31h40m",
+   "escalas": "2",
+   "fuente": "Google Flights",
+   "url_fuente": "https://www.google.com/travel/flights/search?tfs=CBwQAhooEgoyMDI3LTAxLTA5agwIAhIIL20vMGRscXZyDAgDEggvbS8wMWY2MhooEgoyMDI3LTAzLTE5agwIAxIIL20vMDFmNjJyDAgCEggvbS8wZGxxdkABSAFwAYIBCwj___________8BmAEB&hl=es-419&curr=CLP",
+   "notas": "Minimo en pestana Mas economicos. En vista Recomendado aparecia a 1.282.202; Avianca 20h15 a 1.287.890"
+  },
+  {
+   "timestamp_utc": "2026-08-14T00:20:14.095070Z",
+   "fecha_consulta_local": "2026-08-13",
+   "hora_consulta": "20:20",
+   "viaje": "ene31",
+   "tipologia": "directo",
+   "aerolinea": "LEVEL",
+   "precio_clp": "1758959",
+   "precio_usd": "",
+   "duracion_total": "13h25m",
+   "escalas": "0",
+   "fuente": "Google Flights",
+   "url_fuente": "https://www.google.com/travel/flights/search?tfs=CBwQAhooEgoyMDI3LTAxLTA5agwIAhIIL20vMGRscXZyDAgDEggvbS8wMWY2MhooEgoyMDI3LTAxLTMxagwIAxIIL20vMDFmNjJyDAgCEggvbS8wZGxxdkABSAFwAYIBCwj___________8BmAEB&hl=es-419&curr=CLP",
+   "notas": "Iberia (operado por Level): CLP 1.765.910"
+  },
+  {
+   "timestamp_utc": "2026-08-14T00:20:14.114755Z",
+   "fecha_consulta_local": "2026-08-13",
+   "hora_consulta": "20:20",
+   "viaje": "ene31",
+   "tipologia": "rapido",
+   "aerolinea": "LATAM + Iberia",
+   "precio_clp": "1922292",
+   "precio_usd": "",
+   "duracion_total": "18h30m",
+   "escalas": "2",
+   "fuente": "Google Flights",
+   "url_fuente": "https://www.google.com/travel/flights/search?tfs=CBwQAhooEgoyMDI3LTAxLTA5agwIAhIIL20vMGRscXZyDAgDEggvbS8wMWY2MhooEgoyMDI3LTAxLTMxagwIAxIIL20vMDFmNjJyDAgCEggvbS8wZGxxdkABSAFwAYIBCwj___________8BmAEB&hl=es-419&curr=CLP",
+   "notas": "Via GRU y MAD, 18h30. Mas corto <CLP 2M excluyendo directo. Alternativa 20h00 a CLP 1.713.444"
+  },
+  {
+   "timestamp_utc": "2026-08-14T00:20:14.134398Z",
+   "fecha_consulta_local": "2026-08-13",
+   "hora_consulta": "20:20",
+   "viaje": "ene31",
+   "tipologia": "economico",
+   "aerolinea": "Air Canada",
+   "precio_clp": "1268596",
+   "precio_usd": "",
+   "duracion_total": "31h40m",
+   "escalas": "2",
+   "fuente": "Google Flights",
+   "url_fuente": "https://www.google.com/travel/flights/search?tfs=CBwQAhooEgoyMDI3LTAxLTA5agwIAhIIL20vMGRscXZyDAgDEggvbS8wMWY2MhooEgoyMDI3LTAxLTMxagwIAxIIL20vMDFmNjJyDAgCEggvbS8wZGxxdkABSAFwAYIBCwj___________8BmAEB&hl=es-419&curr=CLP",
+   "notas": "Via YYZ/YUL. Minimo en pestana Mas economicos (en Recomendado figuraba 1.512.385); Avianca 20h15 a 1.287.890"
   }
  ]
 }
