@@ -14,7 +14,7 @@
     --bg:#0b1220; --panel:#111a2e; --panel2:#0e1626; --line:rgba(148,163,184,.14);
     --texto:#e2e8f0; --sub:#94a3b8; --tenue:#64748b;
     --mar19-directo:#67e8f9; --mar19-rapido:#38bdf8; --mar19-economico:#818cf8; --mar19-avianca:#c084fc;
-    --ene31-directo:#fde68a; --ene31-rapido:#fb923c; --ene31-economico:#f43f5e; --ene31-avianca:#e879f9;
+    --ene31-directo:#fde68a; --ene31-rapido:#fb923c; --ene31-economico:#f43f5e; --ene31-avianca:#e879f9; --ene31-mixto:#f59e0b;
     --radius:18px;
   }
   *{box-sizing:border-box;margin:0;padding:0}
@@ -133,6 +133,7 @@
   <h2>Cómo leer este monitor</h2>
   <div class="didactica">
     <div class="nota"><strong>Cuatro tipologías, cuatro preguntas</strong>El directo responde «¿cuánto cuesta la comodidad?»; el económico de menor duración, «¿cuál es el mejor equilibrio precio-tiempo?»; el económico, «¿cuál es el piso del mercado?»; Avianca, «¿qué ofrece una aerolínea concreta cuando se la fija de antemano?». La distancia entre curvas es el precio de cada hora ahorrada.</div>
+    <div class="nota"><strong>Una quinta serie, solo en el itinerario B</strong>«Ida Avianca + retorno directo» no es una tarifa de ida y vuelta: Google Flights no permite combinar la ida de Avianca con el directo de LEVEL en un mismo boleto, así que la cifra es la suma de dos pasajes de ida sola cotizados por separado. Al comprarse por separado, cada tramo tiene su propia tarifa, su propio equipaje y sus propias reglas de cambio; el sobreprecio frente al ida y vuelta mide cuánto cuesta esa libertad.</div>
     <div class="nota"><strong>Dos itinerarios, dos paletas</strong>El itinerario A (69 días, retorno 19 mar) usa la familia azul/índigo y línea continua; el B (22 días, retorno 31 ene) usa la familia ámbar/naranja y línea discontinua. Dentro de cada paleta, el tono varía por tipología. Comparar ambos revela cuánto pesa la fecha de retorno en la tarifa.</div>
     <div class="nota"><strong>Cuándo comprar</strong>Para larga distancia Chile–Europa, la ventana histórica de mejores precios suele estar entre 2 y 6 meses antes de la salida. Si la curva del directo se acerca a la del económico, es señal fuerte de compra.</div>
   </div>
@@ -144,14 +145,20 @@
 // Paletas por itinerario: mar19 = fría (cian → cielo → índigo), ene31 = cálida (ámbar → naranjo → rosa)
 const COLORES = {
   mar19:{directo:'#67e8f9', rapido:'#38bdf8', economico:'#818cf8', avianca:'#c084fc'},
-  ene31:{directo:'#fde68a', rapido:'#fb923c', economico:'#f43f5e', avianca:'#e879f9'}
+  ene31:{directo:'#fde68a', rapido:'#fb923c', economico:'#f43f5e', avianca:'#e879f9', mixto:'#f59e0b'}
 };
-const NOMBRES = {directo:'Vuelo directo', rapido:'Económico de menor duración', economico:'Económico', avianca:'Avianca de menor duración'};
+// Tipologías por itinerario: la combinación mixta solo se sigue en el itinerario B
+const TIPOS = {
+  mar19:['directo','rapido','economico','avianca'],
+  ene31:['directo','rapido','economico','avianca','mixto']
+};
+const NOMBRES = {directo:'Vuelo directo', rapido:'Económico de menor duración', economico:'Económico', avianca:'Avianca de menor duración', mixto:'Ida Avianca + retorno directo'};
 const EXPLICA = {
   directo:'Sin escalas. Operan LEVEL e Iberia (~13–14 h por trayecto). La opción más cara, pero la más cómoda.',
   rapido:'El itinerario más corto entre las opciones económicas, excluido el directo. Equilibrio precio-tiempo.',
   economico:'El precio más bajo de toda la búsqueda, sin restricción de duración ni escalas. Puede implicar esperas largas.',
-  avianca:'El itinerario más corto operado por Avianca, sin tope de precio. Toda su red pasa por Bogotá, así que sirve de referencia de aerolínea, no de mínimo de duración.'
+  avianca:'El itinerario más corto operado por Avianca, sin tope de precio. Toda su red pasa por Bogotá, así que sirve de referencia de aerolínea, no de mínimo de duración.',
+  mixto:'Suma de dos boletos de ida sola: SCL–BCN por Avianca y BCN–SCL en el directo de LEVEL. Google Flights no vende esta combinación como tarifa única, así que son dos compras independientes: no hay protección por conexión perdida ni cambios coordinados.'
 };
 const VIAJES = {
   mar19:{etiqueta:'A · ret. 19 mar', dash:[], gf:'https://www.google.com/travel/flights/search?tfs=CBwQAhooEgoyMDI3LTAxLTA5agwIAhIIL20vMGRscXZyDAgDEggvbS8wMWY2MhooEgoyMDI3LTAzLTE5agwIAxIIL20vMDFmNjJyDAgCEggvbS8wZGxxdkABSAFwAYIBCwj___________8BmAEB&hl=es-419&curr=CLP'},
@@ -197,12 +204,12 @@ fetch('data.json?t='+Date.now(), {cache:'no-store'}).then(r=>r.json()).then(d=>{
   const serie = (v,t)=>regs.filter(r=>r.viaje===v && r.tipologia===t);
   for(const v of Object.keys(VIAJES)){
     document.getElementById('cards-'+v).innerHTML =
-      Object.keys(NOMBRES).map(t=>tarjeta(v,t,serie(v,t))).join('');
+      TIPOS[v].map(t=>tarjeta(v,t,serie(v,t))).join('');
   }
   // Gráfico: 6 series (continua = mar19, discontinua = ene31; color = viaje+tipología)
   const etiquetas = [...new Set(regs.map(r=>r.fecha_consulta_local+' '+r.hora_consulta))].sort();
   const datasets = [];
-  for(const v of Object.keys(VIAJES)) for(const t of Object.keys(NOMBRES)){
+  for(const v of Object.keys(VIAJES)) for(const t of TIPOS[v]){
     const s = serie(v,t); if(!s.length) continue;
     const col = COLORES[v][t];
     datasets.push({

@@ -1,5 +1,5 @@
 {
- "actualizado": "2026-08-14T22:42:36.855632Z",
+ "actualizado": "2026-08-15T01:20:28.315794Z",
  "registros": [
   {
    "timestamp_utc": "2026-08-13T19:46:48.872129Z",
@@ -600,6 +600,21 @@
    "fuente": "Google Flights",
    "url_fuente": "https://www.google.com/travel/flights/search?tfs=CBwQAhooEgoyMDI3LTAxLTA5agwIAhIIL20vMGRscXZyDAgDEggvbS8wMWY2MhooEgoyMDI3LTAxLTMxagwIAxIIL20vMDFmNjJyDAgCEggvbS8wZGxxdkABSAFwAYIBCwj___________8BmAEB&hl=es-419&curr=CLP",
    "notas": "Via BOG (escala 3h50m). Unica opcion Avianca visible en los 8 resultados; no se aplico filtro de aerolinea. Mismo precio que en mar19 (1.284.603)"
+  },
+  {
+   "timestamp_utc": "2026-08-15T01:18:35.341528Z",
+   "fecha_consulta_local": "2026-08-14",
+   "hora_consulta": "21:18",
+   "viaje": "ene31",
+   "tipologia": "mixto",
+   "aerolinea": "Avianca + LEVEL",
+   "precio_clp": "2648549",
+   "precio_usd": "",
+   "duracion_total": "20h15m + 14h30m",
+   "escalas": "1+0",
+   "fuente": "Google Flights",
+   "url_fuente": "https://www.google.com/travel/flights/search?tfs=CBwQAhooEgoyMDI3LTAxLTA5agwIAhIIL20vMGRscXZyDAgDEggvbS8wMWY2MkABSAFwAYIBCwj___________8BmAEC&hl=es-419&curr=CLP",
+   "notas": "BOLETOS SEPARADOS. Google Flights no ofrece esta combinacion como tarifa i/v unica: al elegir la ida de Avianca los 5 retornos disponibles son solo Avianca o Iberia+Avianca. Suma de dos one-way: ida SCL-BCN 09-01-2027 Avianca 20h15 via BOG (filtro Aerolineas=Avianca) CLP 1.918.944 + retorno BCN-SCL 31-01-2027 LEVEL directo 14h30 (filtro Solo directos) CLP 729.605. Retorno con codigo Iberia (op. Level): 734.895. Referencia: i/v Avianca 1.284.603 y directo i/v 1.758.900 en la misma corrida"
   }
  ]
 }
